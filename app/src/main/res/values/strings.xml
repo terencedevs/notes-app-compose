@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">NotesMaker</string>
+
+    <!-- Empty State -->
+    <string name="empty_search_title">No notes found</string>
+    <string name="empty_search_subtitle">Try searching with a different keyword</string>
+    <string name="empty_notes_title">No notes yet</string>
+    <string name="empty_notes_subtitle">Tap the + button to create your first note</string>
+
+    <!-- Note Dialog -->
+    <string name="edit_note">Edit Note</string>
+    <string name="add_note">Add Note</string>
+    <string name="title_hint">Title</string>
+    <string name="body_hint">Note content</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Note Item -->
+    <string name="untitled_note">Untitled Note</string>
+    <string name="pin_note">Pin note</string>
+    <string name="unpin_note">Unpin note</string>
+    <string name="delete_note">Delete note</string>
+
+    <!-- Top App Bar -->
+    <string name="top_bar_title">My Notes</string>
+    <string name="notes_count_empty">No notes</string>
+    <string name="notes_count_single">1 note</string>
+    <string name="notes_count">%1$d notes</string>
+    <string name="cd_sort_icon">Sort notes</string>
+    <string name="sort_newest">Newest first</string>
+    <string name="sort_oldest">Oldest first</string>
+    <string name="sort_title">By title</string>
+
+    <!-- Notes Screen -->
+    <string name="note_deleted">Note deleted</string>
+    <string name="undo">Undo</string>
+    <string name="cd_add_note_fab">Add note</string>
+    <string name="search_placeholder">Search notes&#8230;</string>
+    <string name="cd_search_icon">Search</string>
+    <string name="clear_search">Clear search</string>
+</resources>
