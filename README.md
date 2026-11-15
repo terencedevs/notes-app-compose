@@ -1,3 +1,12 @@
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a8f6b6f8-60e4-45a4-a806-23d8f8fc435c" alt="Notes app icon" width="120"/>
+</p>
+<h1 align="center">Notes App</h1>
+ 
+<p align="center">
+  A simple, fast notes app built with <b>Kotlin</b>, <b>Jetpack Compose</b> and <b>Room</b>.<br/>
+</p>
+
 # Notes Maker - Android Assignment (Maincrafts Technology, Task 1)
 
 **Notes Maker** is a production-quality, modern Android application built using Kotlin, Jetpack Compose (Material 3), Room Database, and MVVM architecture. The application is designed to be clean, fast, and feature-rich with local data persistence.
