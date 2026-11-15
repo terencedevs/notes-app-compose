@@ -112,10 +112,10 @@ To run Unit Tests:
 
 ---
 
-## 📸 Screenshots
+## Author
 
-| Empty State | Add Note Dialog | Notes List | Live Search | Dark Mode |
-| :---: | :---: | :---: | :---: | :---: |
-| *(Placeholder)* | *(Placeholder)* | *(Placeholder)* | *(Placeholder)* | *(Placeholder)* |
+**Terence Keniya**
+Android App Development Intern, Maincrafts Technology
 
 ---
+
