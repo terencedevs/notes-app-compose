@@ -4,7 +4,7 @@
 <h1 align="center">Notes App</h1>
  
 <p align="center">
-  A simple, fast notes app built with <b>Kotlin</b>, <b>Jetpack Compose</b> and <b>Room</b>.<br/>
+  A simple, fast notes app built with <b>Kotlin</b> and <b>Jetpack Compose</b>.<br/>
 </p>
 
 # Notes Maker - Android Assignment (Maincrafts Technology, Task 1)
