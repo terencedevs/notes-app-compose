@@ -112,10 +112,6 @@ To run Unit Tests:
 
 ---
 
-## 📸 Screenshots
 
-| Empty State | Add Note Dialog | Notes List | Live Search | Dark Mode |
-| :---: | :---: | :---: | :---: | :---: |
-| *(Placeholder)* | *(Placeholder)* | *(Placeholder)* | *(Placeholder)* | *(Placeholder)* |
 
 ---
