@@ -161,22 +161,6 @@ NotesMaker/
  
 ---
  
-## 📸 Screenshots
- 
-| Adding a note | Notes list |
-|---|---|
-| ![Adding a note](screenshots/01-add-note.png) | ![Notes list](screenshots/02-notes-list.png) |
- 
-| After closing and reopening the app (data persists) | Light mode |
-|---|---|
-| ![Data persists after restart](screenshots/03-after-restart.png) | ![Light mode](screenshots/04-light-mode.png) |
- 
-| Dark mode |
-|---|
-| ![Dark mode](screenshots/05-dark-mode.png) |
- 
----
- 
 ## ✅ How to Test Persistence
  
 1. Run the app and add a note.
