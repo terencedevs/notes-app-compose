@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.notesmaker.data.local.Note
+import com.example.notesmaker.data.preferences.ThemeMode
+import com.example.notesmaker.data.preferences.ThemePreferences
 import com.example.notesmaker.data.repository.NoteRepository
 import com.example.notesmaker.ui.state.NotesUiState
 import com.example.notesmaker.ui.state.SortOrder
@@ -14,8 +16,13 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel managing UI state and business logic for the Notes screen.
+ * Handles note CRUD operations via [NoteRepository] and theme mode via [ThemePreferences].
+ */
 class NotesViewModel(
-    private val repository: NoteRepository
+    private val repository: NoteRepository,
+    private val themePreferences: ThemePreferences? = null
 ) : ViewModel() {
 
     private val _searchQuery = MutableStateFlow("")
@@ -23,6 +30,17 @@ class NotesViewModel(
     private val _isDialogVisible = MutableStateFlow(false)
     private val _editingNote = MutableStateFlow<Note?>(null)
     private val _recentlyDeletedNote = MutableStateFlow<Note?>(null)
+    private val _themeMode = MutableStateFlow(ThemeMode.SYSTEM)
+
+    init {
+        themePreferences?.let { prefs ->
+            viewModelScope.launch {
+                prefs.themeMode.collect { mode ->
+                    _themeMode.value = mode
+                }
+            }
+        }
+    }
 
     private val _dialogAndDeletedState = combine(_isDialogVisible, _editingNote, _recentlyDeletedNote) { isDialogShown, editNote, deletedNote ->
         Triple(isDialogShown, editNote, deletedNote)
@@ -32,8 +50,9 @@ class NotesViewModel(
         repository.getAllNotes(),
         _searchQuery,
         _sortOrder,
-        _dialogAndDeletedState
-    ) { rawNotes, query, sort, (isDialogShown, editNote, deletedNote) ->
+        _dialogAndDeletedState,
+        _themeMode
+    ) { rawNotes, query, sort, (isDialogShown, editNote, deletedNote), theme ->
         val totalCount = rawNotes.size
         val filtered = if (query.isBlank()) {
             rawNotes
@@ -61,11 +80,12 @@ class NotesViewModel(
             sortOrder = sort,
             isDialogVisible = isDialogShown,
             editingNote = editNote,
-            recentlyDeletedNote = deletedNote
+            recentlyDeletedNote = deletedNote,
+            themeMode = theme
         )
     }.stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
+        started = SharingStarted.Eagerly,
         initialValue = NotesUiState()
     )
 
@@ -142,13 +162,24 @@ class NotesViewModel(
         }
     }
 
-    class Factory(private val repository: NoteRepository) : ViewModelProvider.Factory {
+    fun onToggleTheme(isCurrentlyDark: Boolean) {
+        val newMode = if (isCurrentlyDark) ThemeMode.LIGHT else ThemeMode.DARK
+        viewModelScope.launch {
+            themePreferences?.setThemeMode(newMode)
+        }
+    }
+
+    class Factory(
+        private val repository: NoteRepository,
+        private val themePreferences: ThemePreferences? = null
+    ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(NotesViewModel::class.java)) {
-                return NotesViewModel(repository) as T
+                return NotesViewModel(repository, themePreferences) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }
     }
 }
+

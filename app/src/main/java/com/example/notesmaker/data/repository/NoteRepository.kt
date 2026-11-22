@@ -4,6 +4,9 @@ import com.example.notesmaker.data.local.Note
 import com.example.notesmaker.data.local.NoteDao
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Repository interface exposing CRUD data operations for notes.
+ */
 interface NoteRepository {
     fun getAllNotes(): Flow<List<Note>>
     suspend fun insertNote(note: Note): Long
@@ -11,6 +14,9 @@ interface NoteRepository {
     suspend fun deleteNote(note: Note)
 }
 
+/**
+ * Implementation of [NoteRepository] wrapping Room's [NoteDao].
+ */
 class NoteRepositoryImpl(
     private val noteDao: NoteDao
 ) : NoteRepository {
@@ -22,3 +28,4 @@ class NoteRepositoryImpl(
 
     override suspend fun deleteNote(note: Note) = noteDao.deleteNote(note)
 }
+

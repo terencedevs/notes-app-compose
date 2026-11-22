@@ -1,5 +1,6 @@
 package com.example.notesmaker.ui.screens
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -40,9 +41,13 @@ import com.example.notesmaker.ui.components.NoteItem
 import com.example.notesmaker.ui.components.NotesTopAppBar
 import com.example.notesmaker.ui.viewmodel.NotesViewModel
 
+/**
+ * Main Notes screen composable displaying note list, search input, top app bar, and note dialog.
+ */
 @Composable
 fun NotesScreen(
-    viewModel: NotesViewModel
+    viewModel: NotesViewModel,
+    isDarkTheme: Boolean = isSystemInDarkTheme()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -68,7 +73,9 @@ fun NotesScreen(
             NotesTopAppBar(
                 totalNoteCount = uiState.totalNoteCount,
                 currentSortOrder = uiState.sortOrder,
-                onSortOrderSelected = viewModel::onSortOrderChange
+                onSortOrderSelected = viewModel::onSortOrderChange,
+                isDarkTheme = isDarkTheme,
+                onToggleTheme = { viewModel.onToggleTheme(isDarkTheme) }
             )
         },
         floatingActionButton = {
@@ -154,3 +161,4 @@ fun NotesScreen(
         )
     }
 }
+
