@@ -1,8 +1,17 @@
 package com.example.notesmaker.ui.components
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Sort
+import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -20,12 +29,17 @@ import androidx.compose.ui.res.stringResource
 import com.example.notesmaker.R
 import com.example.notesmaker.ui.state.SortOrder
 
+/**
+ * Top App Bar displaying title, total note count, animated sun/moon theme toggle button, and sort menu.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NotesTopAppBar(
     totalNoteCount: Int,
     currentSortOrder: SortOrder,
-    onSortOrderSelected: (SortOrder) -> Unit
+    onSortOrderSelected: (SortOrder) -> Unit,
+    isDarkTheme: Boolean = false,
+    onToggleTheme: () -> Unit = {},
 ) {
     var isSortMenuExpanded by remember { mutableStateOf(false) }
 
@@ -50,6 +64,24 @@ fun NotesTopAppBar(
             }
         },
         actions = {
+            IconButton(onClick = onToggleTheme) {
+                AnimatedContent(
+                    targetState = isDarkTheme,
+                    transitionSpec = {
+                        (fadeIn(animationSpec = tween(300)) + scaleIn(animationSpec = tween(300))) togetherWith
+                        (fadeOut(animationSpec = tween(300)) + scaleOut(animationSpec = tween(300)))
+                    },
+                    label = "ThemeToggleAnimation"
+                ) { dark ->
+                    Icon(
+                        imageVector = if (dark) Icons.Default.LightMode else Icons.Default.DarkMode,
+                        contentDescription = stringResource(
+                            if (dark) R.string.switch_to_light_mode else R.string.switch_to_dark_mode
+                        )
+                    )
+                }
+            }
+
             IconButton(onClick = { isSortMenuExpanded = true }) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.Sort,
@@ -86,3 +118,5 @@ fun NotesTopAppBar(
         }
     )
 }
+
+
